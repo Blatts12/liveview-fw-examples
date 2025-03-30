@@ -7,6 +7,9 @@
 # General application configuration
 import Config
 
+config :contexted,
+  contexts: []
+
 config :example,
   ecto_repos: [Example.Repo],
   generators: [timestamp_type: :utc_datetime]

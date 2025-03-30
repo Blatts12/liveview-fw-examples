@@ -1,5 +1,9 @@
 import Config
 
+config :contexted,
+  app: :example,
+  enable_recompilation: true
+
 # Configure your database
 config :example, Example.Repo,
   username: "postgres",
