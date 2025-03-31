@@ -1,5 +1,10 @@
 import Config
 
+config :live_vue,
+  vite_host: "http://localhost:5173",
+  ssr_module: LiveVue.SSR.ViteJS,
+  ssr: true
+
 config :contexted,
   app: :example,
   enable_recompilation: true
@@ -29,8 +34,7 @@ config :example, ExampleWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "vbMgYBmQ/xiVLuyC8TNviMJYtX8zDdeiRGCLl2DF7jf7IDndMDKIM5nLo+8gdzUv",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:example, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:example, ~w(--watch)]}
+    npm: ["--silent", "run", "dev", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support
@@ -59,10 +63,16 @@ config :example, ExampleWeb.Endpoint,
 # Watch static and templates for browser reloading.
 config :example, ExampleWeb.Endpoint,
   live_reload: [
+    notify: [
+      live_view: [
+        ~r"lib/example_web/core_components.ex$",
+        ~r"lib/example_web/(live|components)/.*(ex|heex)$"
+      ]
+    ],
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/example_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/example_web/controllers/.*(ex|heex)$"
     ]
   ]
 

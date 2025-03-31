@@ -89,6 +89,12 @@ defmodule ExampleWeb do
       import Phoenix.HTML
       # Core UI components
       import ExampleWeb.CoreComponents
+      # Add support to Vue components
+      use LiveVue
+
+      # Generate component for each vue file, so you can omit v-component="name".
+      # You can configure path to your components by using optional :vue_root param
+      # use LiveVue.Components, vue_root: ["./assets/vue", "./lib/my_app_web"]
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
