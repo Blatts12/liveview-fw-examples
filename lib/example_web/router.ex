@@ -19,7 +19,9 @@ defmodule ExampleWeb.Router do
 
     get "/", PageController, :home
 
-    live "/counter", CounterLive
+    live "/test1", TestOneLive
+    live "/test2", TestTwoLive
+    live "/test3", TestThreeLive
   end
 
   # Other scopes may use custom stacks.

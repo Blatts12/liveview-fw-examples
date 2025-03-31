@@ -89,6 +89,8 @@ defmodule ExampleWeb do
       import Phoenix.HTML
       # Core UI components
       import ExampleWeb.CoreComponents
+      # Svelte
+      import LiveSvelte
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

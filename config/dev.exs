@@ -29,7 +29,8 @@ config :example, ExampleWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "vbMgYBmQ/xiVLuyC8TNviMJYtX8zDdeiRGCLl2DF7jf7IDndMDKIM5nLo+8gdzUv",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:example, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
+    # esbuild: {Esbuild, :install_and_run, [:example, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:example, ~w(--watch)]}
   ]
 

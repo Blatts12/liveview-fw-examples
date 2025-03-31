@@ -33,6 +33,7 @@ defmodule Example.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:live_svelte, "~> 0.15.0"},
       {:phoenix, "~> 1.7.20"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
@@ -71,7 +72,7 @@ defmodule Example.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
@@ -79,7 +80,7 @@ defmodule Example.MixProject do
       "assets.build": ["tailwind example", "esbuild example"],
       "assets.deploy": [
         "tailwind example --minify",
-        "esbuild example --minify",
+        "cmd --cd assets node build.js --deploy",
         "phx.digest"
       ]
     ]

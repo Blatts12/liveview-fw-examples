@@ -21,45 +21,15 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
-
-/**
- * @type {Object.<string, import("phoenix_live_view").ViewHookInterface>}
- */
-const Hooks = {};
-
-Hooks.Counter = {
-  mounted() {
-    const multiInput = this.el.querySelector("#multi-input");
-    const baseInput = this.el.querySelector("#base-input");
-    const incButton = this.el.querySelector("#inc-btn");
-    const decButton = this.el.querySelector("#dec-btn");
-    const multiEl = this.el.querySelector("#multi");
-    const baseEl = this.el.querySelector("#base");
-
-    [multiInput, baseInput].forEach((input) => {
-      input?.addEventListener("input", () => {
-        const by = (multiInput?.value ?? 1) * (baseInput?.value ?? 1);
-
-        incButton.textContent = `+${by}`;
-        incButton.setAttribute("phx-value-by", by);
-        decButton.textContent = `-${by}`;
-        decButton.setAttribute("phx-value-by", by);
-
-        multiEl.textContent = multiInput?.value ?? 1;
-        baseEl.textContent = baseInput?.value ?? 1;
-      });
-    });
-  },
-};
+import { getHooks } from "live_svelte";
+import * as Components from "../svelte/**/*.svelte";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
-
 let liveSocket = new LiveSocket("/live", Socket, {
-  longPollFallbackMs: 2500,
+  hooks: getHooks(Components),
   params: { _csrf_token: csrfToken },
-  hooks: Hooks,
 });
 
 // Show progress bar on live navigation and form submits
@@ -75,3 +45,11 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
+
+// Setup
+// cd assets/
+// npm i -D bits-ui
+
+// ~V compiles to "assets/svelte/_build"
+// annoyances: "~V" constant reload on type, "~V" invalid compiled component
+// - translations, https://github.com/woutdp/live_svelte/issues/120
