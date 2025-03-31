@@ -20,37 +20,10 @@ import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
-import topbar from "../vendor/topbar";
-
-/**
- * @type {Object.<string, import("phoenix_live_view").ViewHookInterface>}
- */
-const Hooks = {};
-
-Hooks.Counter = {
-  mounted() {
-    const multiInput = this.el.querySelector("#multi-input");
-    const baseInput = this.el.querySelector("#base-input");
-    const incButton = this.el.querySelector("#inc-btn");
-    const decButton = this.el.querySelector("#dec-btn");
-    const multiEl = this.el.querySelector("#multi");
-    const baseEl = this.el.querySelector("#base");
-
-    [multiInput, baseInput].forEach((input) => {
-      input?.addEventListener("input", () => {
-        const by = (multiInput?.value ?? 1) * (baseInput?.value ?? 1);
-
-        incButton.textContent = `+${by}`;
-        incButton.setAttribute("phx-value-by", by);
-        decButton.textContent = `-${by}`;
-        decButton.setAttribute("phx-value-by", by);
-
-        multiEl.textContent = multiInput?.value ?? 1;
-        baseEl.textContent = baseInput?.value ?? 1;
-      });
-    });
-  },
-};
+import topbar from "topbar";
+import { getHooks } from "live_react";
+import components from "../react-components";
+import "../css/app.css"; // the css file is handled by vite
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -59,7 +32,7 @@ let csrfToken = document
 let liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: { _csrf_token: csrfToken },
-  hooks: Hooks,
+  hooks: getHooks(components),
 });
 
 // Show progress bar on live navigation and form submits
