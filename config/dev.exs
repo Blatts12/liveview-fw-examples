@@ -65,8 +65,8 @@ config :example, ExampleWeb.Endpoint,
   live_reload: [
     notify: [
       live_view: [
-        ~r"lib/my_app_web/core_components.ex$",
-        ~r"lib/my_app_web/(live|components)/.*(ex|heex)$"
+        ~r"lib/example_web/core_components.ex$",
+        ~r"lib/example_web/(live|components)/.*(ex|heex)$"
       ]
     ],
     patterns: [
