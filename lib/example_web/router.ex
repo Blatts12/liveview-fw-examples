@@ -22,6 +22,7 @@ defmodule ExampleWeb.Router do
     live "/test1", TestOneLive
     live "/test2", TestTwoLive
     live "/test3", TestThreeLive
+    live "/streams", StreamsLive
   end
 
   # Other scopes may use custom stacks.
