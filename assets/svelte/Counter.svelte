@@ -1,5 +1,5 @@
 <script>
-  import Button from "./Button.svelte";
+  import { Button } from "carbon-components-svelte";
   let { count = 0, live } = $props();
 
   let base = $state(1);
@@ -13,9 +13,20 @@
 
 <div class="p-2">
   <div class="flex items-center gap-2 mb-2">
-    <Button onclick={increment} class="grow">+{by}</Button>
+    <Button
+      onclick={increment}
+      class="px-4 py-2 uppercase font-semibold bg-black hover:bg-black/80 cursor-pointer text-white rounded-md grow"
+    >
+      +{by}
+    </Button>
     <p class="font-semibold min-w-[4ch] text-center">{count}</p>
-    <Button phx-click="dec" phx-value-by={by} class="grow">-{by}</Button>
+    <Button
+      phx-click="dec"
+      phx-value-by={by}
+      class="px-4 py-2 uppercase font-semibold bg-black hover:bg-black/80 cursor-pointer text-white rounded-md grow"
+    >
+      -{by}
+    </Button>
   </div>
 
   <label for="base">Base</label>
